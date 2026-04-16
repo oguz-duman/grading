@@ -5,4 +5,4 @@ CMD_FILTER = "Change Filter"
 CMD_FINISH = "Finish Grading"
 CMD_EXIT = "Exit"
 
-FILTER_DIR_PATH = "data/classes"
+FILTER_DIR_PATH = "class_filters/"
