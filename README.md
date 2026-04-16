@@ -1,4 +1,4 @@
-# Grading App
+# Grade Entry App
 
 A small CLI tool designed to simplify entering student grades directly into Excel.
 
@@ -175,7 +175,8 @@ Grades cannot be modified once they are entered.
 
 If an incorrect grade is entered, the recommended workflow is:
 
-1. Continue grading
-2. Correct the grade manually in Excel afterwards
+1. Note down the student ID and the correct grade
+2. Continue grading
+3. Correct the grade manually in Excel afterwards
 
 Direct editing inside the program is intentionally not supported in order to keep the input process fast and simple.
