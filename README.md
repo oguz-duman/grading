@@ -16,11 +16,9 @@ git clone https://github.com/oguz-duman/grading
 pip install -r requirements.txt
 ```
 
-The program must be started from the project root directory:
 ```bash
-python src/main.py
+python main.py
 ```
-alternatively, the `grading.cmd` file can be used.
 
 ---
 
@@ -43,7 +41,7 @@ alternatively, the `grading.cmd` file can be used.
 
     To simplify grade entry, students can be filtered by the classroom in which they took the exam.
 
-    Seating plan PDFs may be placed in `data/classes/`.
+    Seating plan PDFs may be placed in `class_filters/`.
 
 
     The program extracts numeric values from each PDF and interprets them as student IDs.
@@ -69,16 +67,12 @@ alternatively, the `grading.cmd` file can be used.
 
     b. **Column configuration**
 
-    The program asks for the starting cells of:
-
-    student ID column
-    student name column
-    grade column
+    The program asks for the starting cells of the relevant columns.
     
-    Example:
-        A2  → student ID
-        B2  → student name
-        C2  → grade
+    For example:
+    * A2  → student ID
+    * B2  → student name
+    * C2  → grade
     <br>
     <br>
 
@@ -108,7 +102,7 @@ alternatively, the `grading.cmd` file can be used.
 
     Grades can then be entered directly.
 
-    Once a student's grade is entered, the student is removed from the search results.
+    Once a student's grade is entered, the student is removed from the search results to make further searches easier.
 
     The most recently entered grades are displayed at the top of the screen, allowing quick verification.
     <br>
@@ -118,13 +112,16 @@ alternatively, the `grading.cmd` file can be used.
 
     If a student is selected accidentally, entering one of the following values instead of a grade cancels the selection:
 
-    `q`, `exit`, `cancel`, `break`
+    * `q`
+    * `exit`
+    * `cancel`
+    * `break`
     <br>
     <br>
 
     g. **"..." element**
 
-    The `...` element exists only to prevent accidental key presses.
+    The `...` element in the students list exists only to prevent accidental key presses.
 
     It has no functional role.
     <br>
@@ -153,6 +150,8 @@ alternatively, the `grading.cmd` file can be used.
     Selecting Finish ends the grading session.
 
     All entered grades are written directly into the Excel file.
+
+    Since students with an existing grade in the Excel file are automatically skipped, it is possible to continue grading later without losing progress.
 
 ---
 
