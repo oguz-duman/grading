@@ -1,4 +1,4 @@
-# Grade Entry App
+# Grade Entry Tool
 
 A small CLI tool designed to simplify entering student grades directly into Excel.
 
