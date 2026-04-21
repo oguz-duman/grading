@@ -43,8 +43,8 @@ class GradingApp:
 
         self.prompt_cell_references()
         self.fetch_student_records()
-        self.load_filters()
         self.setup_input_structure()
+        self.load_filters()
 
         self.grading()
         self.save_output_file()
@@ -115,10 +115,23 @@ class GradingApp:
         """Load optional student ID filters from PDF files."""
 
         if not os.path.exists(FILTER_DIR_PATH):
-            print(f"Filter directory '{FILTER_DIR_PATH}' not found! Continuing without filters.")
+            self.clear_screen()
+            input(
+                f"Filter directory '{FILTER_DIR_PATH}' not found. "
+                "Continuing without filters (highly recommended for faster grading)..."
+            )
+            return
+        
+        filters = os.listdir(FILTER_DIR_PATH)
+        if not filters:
+            self.clear_screen()
+            input(
+                f"No filters found."
+                "Continuing without filters (highly recommended for faster grading)..."
+            )
             return
 
-        for filename in os.listdir(FILTER_DIR_PATH):
+        for filename in filters:
             if not filename.endswith(".pdf"):
                 continue
 
@@ -139,8 +152,8 @@ class GradingApp:
                 numbers = [token for token in text if token.isdigit()]
                 self.filters[filter_name] = numbers
 
-            except Exception as e:
-                print(f"Error reading filter file '{file_path}': {e}")
+            except Exception as exc:
+                print(f"Error reading filter file '{file_path}': {exc}")
                 self.filters[filter_name] = []
 
 
