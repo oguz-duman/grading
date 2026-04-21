@@ -6,3 +6,4 @@ CMD_FINISH = "Finish Grading"
 CMD_EXIT = "Exit"
 
 FILTER_DIR_PATH = "class_filters/"
+LOCAL_VERSION_FILE = "latest.json"

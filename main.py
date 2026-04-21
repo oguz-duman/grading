@@ -1,12 +1,15 @@
 import os
 import pdfplumber
+import requests
+import json
+from pathlib import Path
 from InquirerPy import inquirer
 from tkinter import Tk, filedialog
 from openpyxl import load_workbook
 from openpyxl.utils.cell import coordinate_from_string, column_index_from_string
 
 from data_models import Student, HistoryEntry
-from constants import CMD_NULL, CMD_FILTER, CMD_FINISH, FILTER_DIR_PATH
+from constants import CMD_NULL, CMD_FILTER, CMD_FINISH, FILTER_DIR_PATH, LOCAL_VERSION_FILE
 
 
 class GradingApp:
@@ -301,7 +304,31 @@ class GradingApp:
         return file_path
 
 
+def check_updates():
+    local_file = Path(__file__).parent / LOCAL_VERSION_FILE
+    if not local_file.exists():
+        return
+    local_version = tuple(map(int, json.loads(local_file.read_text())["version"].split(".")))
+    remote_version_data = requests.get(
+        "https://raw.githubusercontent.com/oguz-duman/grading/main/latest.json",
+        timeout=3
+    ).json()
+    remote_version = tuple(map(int, remote_version_data["version"].split(".")))
+
+    if remote_version > local_version:
+        os.system("cls" if os.name == "nt" else "clear")
+        print(f"\nUpdate available ({'.'.join(map(str, local_version))} → {remote_version_data['version']})")
+        if "notes" in remote_version_data:
+            print(remote_version_data["notes"])
+        input("Run: git pull\n")
+
+
 if __name__ == "__main__":
+    try:
+        check_updates()
+    except Exception:
+        pass
+
     try:
         grading_app = GradingApp()
         grading_app.main()
