@@ -215,7 +215,7 @@ class GradingApp:
         """Prompt user for a valid grade or allow cancel."""
 
         while True:
-            grade_str = input("Enter grade: ").strip()
+            grade_str = input("Enter grade (q to cancel): ").strip()
 
             if grade_str.lower() in ["q", "exit", "cancel", "break"]:
                 return
