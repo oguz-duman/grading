@@ -328,6 +328,8 @@ class GradingApp:
 
 
 def check_updates():
+    print("Starting...")
+
     local_file = Path(__file__).parent / LOCAL_VERSION_FILE
     if not local_file.exists():
         return
