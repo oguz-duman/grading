@@ -287,6 +287,7 @@ class GradingApp:
     def open_input_file(self) -> str:
         """Open file picker for Excel input file."""
 
+        input("Select student excel file")
         root = Tk()
         root.withdraw()  
 
