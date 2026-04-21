@@ -126,7 +126,7 @@ class GradingApp:
         if not filters:
             self.clear_screen()
             input(
-                f"No filters found."
+                f"No filters found. "
                 "Continuing without filters (highly recommended for faster grading)..."
             )
             return
