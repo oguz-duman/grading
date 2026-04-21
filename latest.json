@@ -1,4 +1,4 @@
 {
-  "version": "1.0.2",
-  "notes": "Fixed crash on empty input"
+  "version": "1.0.3",
+  "notes": "Fixed crash when the Excel file is open during save."
 }

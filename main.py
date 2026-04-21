@@ -259,7 +259,16 @@ class GradingApp:
             if student.grade is not None:
                 ws.cell(row=row_idx, column=self.grade_col).value = student.grade
 
-        wb.save(self.file_path)
+        while True:
+            try:
+                wb.save(self.file_path)
+                return
+            except PermissionError:
+                self.clear_screen()
+                input(
+                    "\nCannot save Excel file.\n"
+                    "Close the file in Excel and press ENTER to retry..."
+                )
 
 
     def change_filter(self) -> None:
@@ -287,7 +296,7 @@ class GradingApp:
     def open_input_file(self) -> str:
         """Open file picker for Excel input file."""
 
-        input("Select student excel file")
+        input("Select student excel file...")
         root = Tk()
         root.withdraw()  
 
@@ -321,7 +330,8 @@ def check_updates():
         print(f"\nUpdate available ({'.'.join(map(str, local_version))} → {remote_version_data['version']})")
         if "notes" in remote_version_data:
             print(remote_version_data["notes"])
-        input("Run: git pull\n")
+        print("You may run: git pull\n")
+        input("...")
 
 
 if __name__ == "__main__":
