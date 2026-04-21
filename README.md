@@ -2,7 +2,7 @@
 
 A small CLI tool designed to simplify entering student grades directly into Excel.
 
-The program allows fast keyboard-based grade entry by searching students by name or ID, supports optional class-based filtering using seating plan PDFs, and writes grades directly into the selected Excel file.
+The application allows fast keyboard-based grade entry by searching students by name or ID, supports optional class-based filtering using seating plan PDFs, and writes grades directly into the selected Excel file.
 
 ---
 
@@ -26,25 +26,25 @@ python main.py
 
 1. **Excel File**
 
-    The program works directly with an Excel file (.xlsx) containing the student list.
+    The application works directly with an Excel file (.xlsx) containing the student list.
     The file must include at least:
 
     * student ID column
     * student name column
     * grade column
 
-    The program will ask for the starting cell of each column (e.g. A2, B2, C2).
+    The application will ask for the starting cell of each column (e.g. A2, B2, C2).
     <br>
     <br>
 
-2. **Class-based Filtering** (Optional)
+2. **Class-based Filtering** (Optional, but highly recommended)
 
     To simplify grade entry, students can be filtered by the classroom in which they took the exam.
 
     Seating plan PDFs may be placed in `class_filters/`.
 
 
-    The program extracts numeric values from each PDF and interprets them as student IDs.
+    The application extracts numeric values from each PDF and interprets them as student IDs.
 
     Each PDF file must contain the seating plan of exactly one class.
 
@@ -55,7 +55,7 @@ python main.py
 
 3. **Program Flow**
 
-    When the program starts, the following steps are performed:
+    When the application starts, the following steps are performed:
     <br>
     <br>
 
@@ -67,7 +67,7 @@ python main.py
 
     b. **Column configuration**
 
-    The program asks for the starting cells of the relevant columns.
+    The application asks for the starting cells of the relevant columns.
     
     For example:
     * A2  → student ID
@@ -88,7 +88,7 @@ python main.py
 
     d. **Grade range**
 
-    The program asks for minimum and maximum allowed grade values to prevent invalid input.
+    The application asks for minimum and maximum allowed grade values to prevent invalid input.
 
     Both integer and decimal values are supported.
     <br>
@@ -179,4 +179,10 @@ If an incorrect grade is entered, the recommended workflow is:
 2. Continue grading
 3. Correct the grade manually in Excel afterwards
 
-Direct editing inside the program is intentionally not supported in order to keep the input process fast and simple.
+Direct editing inside the application is intentionally not supported in order to keep the input process fast and simple.
+
+---
+
+## Notes
+
+The application may check GitHub for newer versions and notify you if an update is available — no automatic updates.
