@@ -107,8 +107,24 @@ class GradingApp:
                     f"for student '{student_id}' at row {row_idx}."
                 )
 
-            self.students[str(student_id)] = Student(
-                str(student_id),
+            student_id = str(student_id)
+
+            # duplication control
+            if student_id in self.students:
+                self.clear_screen()
+                print(f"Duplicate student ID found: {student_id}")
+                print(f"This ID appears more than once in the Excel file.")
+
+                while True:
+                    choice = input("\nDo you want to continue anyway? (y/n): ").strip().lower()
+                    if choice in ["y", "yes"]:
+                        break
+                    if choice in ["n", "no"]:
+                        raise SystemExit("Program stopped because duplicate student IDs were found.")
+                    print("Invalid input. Please enter y or n.")
+
+            self.students[student_id] = Student(
+                student_id,
                 str(student_name),
                 student_grade
             )
