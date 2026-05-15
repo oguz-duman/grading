@@ -21,7 +21,7 @@ class GradingApp:
 
         self.filters: dict[str, list[str]] = {}
         self.active_filter: str | None = None
-        self.file_path: str | None = None
+        self.file_path: str
 
         self.min_grade: float
         self.max_grade: float
@@ -75,6 +75,9 @@ class GradingApp:
         wb = load_workbook(self.file_path)
         ws = wb.active
 
+        if not ws:
+            raise ValueError("Excel file does not contain any sheets.")
+
         for row_idx in range(self.number_row, ws.max_row + 1):
             student_id = ws.cell(row=row_idx, column=self.number_col).value
             student_name = ws.cell(row=row_idx, column=self.name_col).value
@@ -112,7 +115,7 @@ class GradingApp:
     
 
     def load_filters(self) -> None:
-        """Load optional student ID filters from PDF files."""
+        """Load optional student ID filters from PDF and TXT files."""
 
         if not os.path.exists(FILTER_DIR_PATH):
             self.clear_screen()
@@ -132,24 +135,35 @@ class GradingApp:
             return
 
         for filename in filters:
-            if not filename.endswith(".pdf"):
+            file_path = os.path.join(FILTER_DIR_PATH, filename)
+            filter_name, extension = os.path.splitext(filename)
+            extension = extension.lower()
+
+            if extension not in [".pdf", ".txt"]:
                 continue
 
-            file_path = os.path.join(FILTER_DIR_PATH, filename)
-            filter_name = os.path.splitext(filename)[0]
-
             try:
-                text_all = []
+                if extension == ".pdf":
+                    text_all = []
 
-                with pdfplumber.open(file_path) as pdf:
-                    for page in pdf.pages:
-                        text = page.extract_text()
-                        if text:
-                            text_all.append(text)
+                    with pdfplumber.open(file_path) as pdf:
+                        for page in pdf.pages:
+                            text = page.extract_text()
+                            if text:
+                                text_all.append(text)
 
-                text = "\n".join(text_all).split()
-                # Extract numeric tokens as student IDs from seating-plan PDFs.
-                numbers = [token for token in text if token.isdigit()]
+                    text = "\n".join(text_all)
+
+                elif extension == ".txt":
+                    with open(file_path, "r", encoding="utf-8") as file:
+                        text = file.read()
+
+                tokens = text.split()
+
+                # Extract numeric tokens as student IDs.
+                # TXT files may contain names or other text, but only pure numbers are used.
+                numbers = [token for token in tokens if token.isdigit()]
+
                 self.filters[filter_name] = numbers
 
             except Exception as exc:
@@ -258,6 +272,9 @@ class GradingApp:
 
         wb = load_workbook(self.file_path)
         ws = wb.active
+
+        if not ws:
+            raise ValueError("Excel file does not contain any sheets.")
 
         for row_idx in range(self.grade_row, ws.max_row + 1):
             student_id = ws.cell(row=row_idx, column=self.number_col).value
