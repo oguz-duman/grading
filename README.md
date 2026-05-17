@@ -180,9 +180,3 @@ If an incorrect grade is entered, the recommended workflow is:
 3. Correct the grade manually in Excel afterwards
 
 Direct editing inside the application is intentionally not supported in order to keep the input process fast and simple.
-
----
-
-## Notes
-
-The application may check GitHub for newer versions and notify you if an update is available — no automatic updates.
